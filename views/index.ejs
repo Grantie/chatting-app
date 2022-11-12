@@ -60,15 +60,17 @@
         const fbApp = initializeApp(firebaseConfig);
         const db = getDatabase(fbApp);
 
-        if (!localStorage.getItem("username")) {
+        if (!localStorage.username) {
             var input = window.prompt("Please enter a username for people to know you as!");
             localStorage.setItem("username",input);
             window.location = window.location;
         }
-
-        document.body.addEventListener("load", (e) => {
-            document.querySelector(".authorInput").value = localStorage.getItem("username");
-        });
+        
+      function updateUsername() {
+        document.querySelector(".authorInput").value = localStorage.username;
+      }
+      
+      setInterval(updateUsername, 100);
 
         onValue(ref(db, "/msgs"), (snapshot) => {
             document.querySelector(".msgs").innerHTML = "";
