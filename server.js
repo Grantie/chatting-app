@@ -28,7 +28,7 @@ app.post("/sendMsg", async (req, res) => {
         const lastMsg = snapshot.val();
         await set(ref(db, `/msgs/${lastMsg + 1}`), {
             content: req.body.content,
-            author: "Grantie"
+            author: req.body.author
         });
         await set(ref(db, "/lastMsg"), lastMsg + 1);
         res.redirect("/");
