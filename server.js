@@ -31,6 +31,7 @@ app.post("/sendMsg", async (req, res) => {
             author: "Grantie"
         });
         await set(ref(db, "/lastMsg"), lastMsg + 1);
+        res.redirect("/");
     });
 });
 

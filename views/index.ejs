@@ -39,6 +39,7 @@
             <form action="/sendMsg" class="sendMsgForm form-floating form-inline" style="display: flex;" method="POST">
                 <input type="text" id="msgInput" name="content" class="form-control"><label for="msgInput">Message</label><button class="btn btn-outline-primary" type="submit"><span class="sr-only">Send</span><i
                         class="fa-solid fa-paper-plane"></i></button>
+                <input type="text" name="author" class="authorInput" hidden />
             </form>
         </div>
     </div>
@@ -58,6 +59,16 @@
 
         const fbApp = initializeApp(firebaseConfig);
         const db = getDatabase(fbApp);
+
+        if (!localStorage.getItem("username")) {
+            var input = window.prompt("Please enter a username for people to know you as!");
+            localStorage.setItem("username",input);
+            window.location = window.location;
+        }
+
+        document.body.addEventListener("load", (e) => {
+            document.querySelector(".authorInput").value = localStorage.getItem("username");
+        });
 
         onValue(ref(db, "/msgs"), (snapshot) => {
             document.querySelector(".msgs").innerHTML = "";
